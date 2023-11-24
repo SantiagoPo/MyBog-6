@@ -28,7 +28,7 @@ body {
     box-sizing: border-box;
 }
 
-.login-box h2 {
+h2 {
     margin: 0;
     padding: 0;
     color: #f2163e;
@@ -93,91 +93,11 @@ body {
     margin-bottom: 10px;
 }
 
-.login-box button {
-    display: block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    color: #f40303;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: .5s;
-    letter-spacing: 3px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-.login-box button:hover {
-    background: #ff0000;
-    color: #ffcf11;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0202, 0 0 20px #ff0000;
-}
 
 .login-box .form-group a {
     text-align: center;
     display: block;
 }
-
-.image-preview-container {
-    flex: 0 0 50%;
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.image-preview {
-    width: 100%;
-    height: 0;
-    padding-bottom: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.image-preview img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.image-preview img:not(:first-child) {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.image-preview.active img {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.image-preview-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.image-preview-nav .nav-arrow {
-    font-size: 2rem;
-    color: #000;
-    cursor: pointer;
-    margin: 0 10px;
-}
-
-.image-preview-nav .nav-arrow:hover {
-    color: #ff0000;
-}
-
-
 
 .container2 {
     width: 30%;
@@ -185,4 +105,49 @@ body {
     position: relative;
     left: 220px;
     top: -650px;
+}
+
+.custom-file-input {
+    display: none;
+}
+
+.custom-file-label {
+    background-color: #f5f5f5;
+    color: black;
+    border: 2px solid #cacaca;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.labelfotos {
+    display: block;
+}
+
+.btn {
+
+    width: 30%;
+    display: block;
+    margin: 40px auto;
+    padding: 7px 10px;
+    border-radius: 5px;
+    color: #3c3c3c;
+    text-decoration: none;
+    overflow: hidden;
+    transition: .5s;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-bottom: solid 1px rgba(255, 0, 0, 0.6);
+    background-color: rgba(255, 0, 0, 0.1);
+    box-shadow: 0 0 2px #ff0000, 0 0 2px #ff0000, 0 0 2px #ff0202, 0 0 0px #ff0000
+}
+
+.btn:hover {
+    text-decoration: none;
+    background: rgba(255, 0, 0, 0.4);
+    color: black;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #ff0000, 0 0 4px #ff0000, 0 0 6px #ff0202, 0 0 8px #ff0000;
 }

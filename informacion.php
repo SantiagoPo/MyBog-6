@@ -156,33 +156,35 @@ require_once('./config/conexion.php');
                   ?>
                   <!-- Tarjeta de parque -->
                   <div class="col-md-4">
-    <div class="card">
-        <!-- Imagen de la tarjeta -->
-        <?php
-        $imagenNombre = rawurlencode($parque['Nombre_de_parques']);
-        $imagenUrl = "./Imagenes/parques/{$imagenNombre}.jpg"; // Ajusta la extensión según el formato de tus imágenes
-        ?>
-        <img class="card-img-top" src="<?php echo $imagenUrl; ?>"
-            alt="<?php echo htmlspecialchars($parque['Nombre_de_parques']); ?>">
+                    <div class="card">
+                      <!-- Imagen de la tarjeta -->
+                      <?php
+                      $imagenNombre = rawurlencode($parque['Nombre_de_parques']);
+                      $imagenUrl = "./Imagenes/parques/{$imagenNombre}.jpg"; // Ajusta la extensión según el formato de tus imágenes
+                      ?>
+                      <img class="card-img-top" src="<?php echo $imagenUrl; ?>"
+                        alt="<?php echo htmlspecialchars($parque['Nombre_de_parques']); ?>">
 
-        <!-- Contenido de la tarjeta -->
-        <div class="card-body">
-            <!-- Títulos -->
-            <h5 class="card-title">
-                <?php echo htmlspecialchars($parque['Nombre_de_parques']); ?>
-            </h5>
-            <h6 class="card-subtitle mb-2 text-muted">
-                <?php echo htmlspecialchars($parque['Ubicacion_de_parques']); ?>
-            </h6>
+                      <!-- Contenido de la tarjeta -->
+                      <div class="card-body">
+                        <!-- Títulos -->
+                        <h5 class="card-title">
+                          <?php echo htmlspecialchars($parque['Nombre_de_parques']); ?>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                          <?php echo htmlspecialchars($parque['Ubicacion_de_parques']); ?>
+                        </h6>
 
-            <!-- Puedes agregar más detalles según tu estructura de base de datos -->
+                        <!-- Puedes agregar más detalles según tu estructura de base de datos -->
 
-            <!-- Botón para abrir más información en informacion.php -->
-            <a href="informacion.php?parque=<?php echo urlencode($parque['Nombre_de_parques']); ?>"
-                class="btn btn-primary">Más información</a>
-        </div>
-    </div>
-</div>
+                        <!-- Botón para abrir más información en informacion.php -->
+                        <a href="resultado.php?tabla=parques&nombre=<?php echo urlencode($parque['Nombre_de_parques']); ?>"
+                          class="btn btn-primary">Más información</a>
+
+
+                      </div>
+                    </div>
+                  </div>
                   <?php
                 endforeach;
               } else {

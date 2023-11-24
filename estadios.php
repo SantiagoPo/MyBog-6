@@ -161,10 +161,12 @@ require_once('./config/conexion.php');
                                         <h5 class="card-title">
                                             <?php echo htmlspecialchars($estadio['Nombres_de_estadios']); ?>
                                         </h5>
-                                        <h5 class="card-title">
+                                        <h6 class="card-subtitle mb-2 text-muted">
                                             <?php echo htmlspecialchars($estadio['Ubicacion_de_estadios']); ?>
-                                        </h5>
+                                        </h6>
                                         <!-- Puedes agregar más detalles según tu estructura de base de datos -->
+                                        <a href="resultado.php?tabla=estadios&nombre=<?php echo urlencode($estadio['Nombres_de_estadios']); ?>"
+                                                    class="btn btn-primary">Más información</a>
                                     </div>
                                 </div>
                             </div>

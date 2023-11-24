@@ -144,31 +144,35 @@ require_once('./config/conexion.php');
 
                                 // Tu bucle de tarjetas de centros comerciales
                                 foreach ($centrosComerciales as $centroComercial):
-                            ?>
-                            <!-- Tarjeta de centro comercial -->
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <!-- Contenido de la tarjeta -->
-
-                                    <!-- Enlace para abrir informacion.php con el nombre de la localidad en la URL -->
-                                    <?php
-                                        $imagenNombre = rawurlencode($centroComercial['Nombres_de_centros_comerciales']);
-                                        $imagenUrl = "./Imagenes/centros_comerciales/{$imagenNombre}.jpg"; // Ajusta la extensión según el formato de tus imágenes
                                     ?>
-                                    <img class="card-img-top" src="<?php echo $imagenUrl; ?>"
-                                        alt="<?php echo htmlspecialchars($centroComercial['Nombres_de_centros_comerciales']); ?>">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <?php echo htmlspecialchars($centroComercial['Nombres_de_centros_comerciales']); ?>
-                                        </h5>
-                                        <h5 class="card-title">
-                                            <?php echo htmlspecialchars($centroComercial['Ubicacion_de_centros_comerciales']); ?>
-                                        </h5>
-                                        <!-- Puedes agregar más detalles según tu estructura de base de datos -->
+                                    <!-- Tarjeta de centro comercial -->
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <!-- Contenido de la tarjeta -->
+
+
+
+                                            <!-- Enlace para abrir informacion.php con el nombre de la localidad en la URL -->
+                                            <?php
+                                            $imagenNombre = rawurlencode($centroComercial['Nombres_de_centros_comerciales']);
+                                            $imagenUrl = "./Imagenes/centros_comerciales/{$imagenNombre}.jpg"; // Ajusta la extensión según el formato de tus imágenes
+                                            ?>
+                                            <img class="card-img-top" src="<?php echo $imagenUrl; ?>"
+                                                alt="<?php echo htmlspecialchars($centroComercial['Nombres_de_centros_comerciales']); ?>">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <?php echo htmlspecialchars($centroComercial['Nombres_de_centros_comerciales']); ?>
+                                                </h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">
+                                                    <?php echo htmlspecialchars($centroComercial['Ubicacion_de_centros_comerciales']); ?>
+                                                </h6>
+                                                <!-- Puedes agregar más detalles según tu estructura de base de datos -->
+                                                <a href="resultado.php?tabla=centros_comerciales&nombre=<?php echo urlencode($centroComercial['Nombres_de_centros_comerciales']); ?>"
+                                                    class="btn btn-primary">Más información</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <?php
+                                    <?php
                                 endforeach;
                             } else {
                                 echo '<p>No se encontraron centros comerciales para la localidad seleccionada.</p>';
@@ -183,9 +187,11 @@ require_once('./config/conexion.php');
                 <footer class="footer">
                     <nav>
                         <ul>
-                            <li><a href="#" data-toggle="modal" data-target="#modalPoliticaPrivacidad">Política de privacidad</a>
+                            <li><a href="#" data-toggle="modal" data-target="#modalPoliticaPrivacidad">Política de
+                                    privacidad</a>
                             </li>
-                            <li><a href="#" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y condiciones</a>
+                            <li><a href="#" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y
+                                    condiciones</a>
                             </li>
                             <li><a href="#" data-toggle="modal" data-target="#modalContacto">Contacto</a></li>
                             <?php
@@ -204,13 +210,15 @@ require_once('./config/conexion.php');
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title" id="myModalLabel">Mensaje</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
                                         Debes estar logueado/registrado para utilizar este servicio.
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>

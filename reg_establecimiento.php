@@ -19,7 +19,6 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style/HeaderFooter.css">
     <link rel="stylesheet" type="text/css" href="style/Style_reg_establecimiento.css">
-
 </head>
 
 <body>
@@ -55,10 +54,10 @@ if (!isset($_SESSION['user_id'])) {
         </nav>
 
         <div class="container">
+            <h2>Registro de Establecimiento</h2>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="login-box">
-                        <h2>Registro de Establecimiento</h2>
                         <form action="php/procesar_registro_establecimiento.php" method="post"
                             enctype="multipart/form-data">
                             <div class="form-group">
@@ -114,11 +113,17 @@ if (!isset($_SESSION['user_id'])) {
                                 </select>
                                 <label>Tipo de Establecimiento</label>
                             </div>
-                            <div class="form-group">
-                                <label for="photos">Fotos</label>
-                                <input type="file" class="form-control-file" id="photos" name="photos[]"
-                                    accept="image/*" multiple required>
+                            <div class="form-group"><label class="labelfotos">
+                                    Seleccionar archivos
+                                </label>
                             </div>
+                            <div class="input-group mb-3">
+                                <label for="photos" class="custom-file-label"></label>
+                                <input type="file" class="custom-file-input" id="photos" name="photos[]"
+                                    accept="image/*" multiple required onchange="handleFileSelect(event)">
+                                <div id="image-preview" class="image-preview"></div>
+                            </div>
+                            <div class="thumbnail-container" id="thumbnail-container"></div>
                             <br>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Enviar Registro</button>
@@ -126,77 +131,243 @@ if (!isset($_SESSION['user_id'])) {
                         </form>
                     </div>
                 </div>
+                <div>
+                </div>
             </div>
         </div>
-    </div>
-    <?php
-    include('modales_footer.php');
-    ?>
-    <footer class="footer">
-        <nav>
-            <ul>
-                <li><a href="#" data-toggle="modal" data-target="#modalPoliticaPrivacidad">Política de
-                        privacidad</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y
-                        condiciones</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#modalContacto">Contacto</a></li>
+       <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
 
-            </ul>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="modalImage" class="img-fluid" src="" alt="Image Preview">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <br>
-            <p>©
-                <?php echo date("Y"); ?> MyBog. Todos los derechos reservados.
-            </p>
-        </nav>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="./Funcionamiento_por_js/editar_usuario.js"></script>
-    <script src=".Funcionamiento_por_js/reg_establecimiento.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const slider = document.querySelector(".slide ul");
-            const slides = document.querySelectorAll(".slide li");
-            const controls = document.querySelectorAll(".slider-control");
+        <?php
+        include('modales_footer.php');
+        ?>
+        <footer class="footer">
+            <nav>
+                <ul>
+                    <li><a href="#" data-toggle="modal" data-target="#modalPoliticaPrivacidad">Política de
+                            privacidad</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y
+                            condiciones</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#modalContacto">Contacto</a></li>
+                </ul>
+                <br>
+                <p>©
+                    <?php echo date("Y"); ?> MyBog. Todos los derechos reservados.
+                </p>
+            </nav>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="./Funcionamiento_por_js/editar_usuario.js"></script>
+        <script src=".Funcionamiento_por_js/reg_establecimiento.js"></script>
+        <script>
+            document.getElementById('photos').addEventListener('change', function (e) {
+                var label = document.querySelector('.custom-file-label');
+                var files = e.target.files;
 
-            let currentIndex = 0;
-            const slideCount = slides.length;
-            const slideWidth = slides[0].clientWidth;
-            const intervalTime = 3000;
+                if (files.length > 1) {
+                    label.textContent = files.length + ' archivos seleccionados';
+                } else {
+                    label.textContent = files[0].name;
+                }
 
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % slideCount;
-                updateSlider();
-            }
-
-            function updateSlider() {
-                const translateX = -currentIndex * slideWidth;
-                slider.style.transform = `translateX(${translateX}px)`;
-
-                // Actualiza los botones de control
-                controls.forEach((control, index) => {
-                    if (index === currentIndex) {
-                        control.classList.add("active");
-                    } else {
-                        control.classList.remove("active");
-                    }
-                });
-            }
-
-            setInterval(nextSlide, intervalTime);
-
-            // Agrega eventos a los botones de control
-            controls.forEach((control, index) => {
-                control.addEventListener("click", () => {
-                    currentIndex = index;
-                    updateSlider();
-                });
+                handleFileSelect(files);
             });
-        });
-    </script>
+
+            function handleFileSelect(files) {
+                var container = document.getElementById('thumbnail-container');
+                var imagePreview = document.getElementById('image-preview');
+
+                // Limpiar el contenedor de miniaturas
+                container.innerHTML = '';
+
+                // Limpiar la imagen de la vista previa
+                imagePreview.innerHTML = '';
+
+                // Verificar si hay archivos seleccionados
+                if (files.length > 0) {
+                    // Mostrar el contenedor de miniaturas
+                    container.style.display = 'flex';
+
+                    // Crear miniaturas y agregar al contenedor
+                    for (var i = 0; i < files.length; i++) {
+                        var thumbnail = document.createElement('img');
+                        thumbnail.className = 'thumbnail';
+                        thumbnail.src = URL.createObjectURL(files[i]);
+                        thumbnail.addEventListener('click', function (event) {
+                            toggleThumbnailSelection(event, files);
+                        });
+                        container.appendChild(thumbnail);
+                    }
+
+                    // Mostrar la imagen seleccionada en la vista previa
+                    var thumbnails = document.querySelectorAll('.thumbnail');
+                    thumbnails.forEach(function (thumbnail, index) {
+                        thumbnail.addEventListener('click', function () {
+                            openImageModal(files, index);
+                        });
+                    });
+                }
+            }
+
+            // Function to open the image modal
+            function openImageModal(files, index) {
+                var modalImage = document.getElementById('modalImage');
+                modalImage.src = URL.createObjectURL(files[index]);
+
+                $('#imageModal').modal('show');
+            }
+            // Update the openImageModal function
+            function openImageModal(files, index) {
+                var modalImage = document.getElementById('modalImage');
+                var modalTitle = document.getElementById('imageModalLabel');
+
+                modalImage.src = URL.createObjectURL(files[index]);
+
+                // Set the modal title to the name of the image
+                var imageName = files[index].name;
+                modalTitle.innerHTML = imageName;
+
+                $('#imageModal').modal('show');
+            }
+
+        </script>
+
 
 
 </body>
 
 </html>
+
+<style>
+    .thumbnail-container {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 40px;
+        border: 2px solid #cacaca;
+        padding: 10px 10px 0px 10px;
+        border-radius: 10px;
+    }
+
+
+    .thumbnail {
+        border: 2px solid #cacaca;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: border 0.3s ease;
+    }
+
+    .thumbnail:hover {
+        border: 2px solid #FFFB00;
+    }
+
+    .thumbnail.selected {
+        border: 2px solid #ff0000;
+
+    }
+
+
+    .custom-file-input {
+        display: none;
+    }
+
+    .custom-file-label {
+        background-color: #f5f5f5;
+        color: black;
+        border: 2px solid #cacaca;
+        padding: 8px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .labelfotos {
+        display: block;
+    }
+
+    .btn {
+        width: 30%;
+        display: block;
+        margin: 40px auto;
+        padding: 7px 10px;
+        border-radius: 5px;
+        color: #3c3c3c;
+        text-decoration: none;
+        overflow: hidden;
+        transition: .5s;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        border-bottom: solid 1px rgba(255, 0, 0, 0.6);
+        background-color: rgba(255, 0, 0, 0.1);
+        box-shadow: 0 0 2px #ff0000, 0 0 2px #ff0000, 0 0 2px #ff0202, 0 0 0px #ff0000
+    }
+
+    .btn:hover {
+        text-decoration: none;
+        background: rgba(255, 0, 0, 0.4);
+        color: black;
+        border-radius: 5px;
+        box-shadow: 0 0 2px #ff0000, 0 0 4px #ff0000, 0 0 6px #ff0202, 0 0 8px #ff0000;
+    }
+
+    #image-preview {
+        display: none;
+    }
+
+    .modal-dialog .modal-body {
+        text-align: center;
+    }
+
+    #modalImage {
+        max-height: 400px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .modal-dialog .modal-content {
+        background-color: white
+    }
+
+    .modal-dialog .modal-header {
+        text-align: center;
+        color: #3c3c3c;
+    }
+
+    .modal-dialog .modal-body {
+        text-align: center;
+        padding: 20px;
+    }
+
+
+    h2 {
+        margin: 0;
+        padding: 0;
+        color: #f2163e;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+</style>

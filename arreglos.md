@@ -1,10 +1,7 @@
 # COSAS POR ARREGLAR CLASIFICADOS EN FUNCIONALIDAD, RESPONSIVE, DISEÑO!!!!!!!!!!
 
 # FUNCIONALIDAD!!!
-1. Base de datos lugares bogota.
-6. Vista previa imagenes registro de establecimiento. 
-7. Guardar imagenes y nombres de imagenes en db
-10. Mas informacion no funcionando (preferiblemente modal).
+
 
 
 # RESPONSIVE!!!

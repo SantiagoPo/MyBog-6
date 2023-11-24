@@ -63,7 +63,7 @@ CREATE TABLE `centros_comerciales` (
   PRIMARY KEY (`Id_de_centros_comerciales`),
   KEY `Id_entretenimiento` (`Id_entretenimiento`),
   CONSTRAINT `centros_comerciales_ibfk_1` FOREIGN KEY (`Id_entretenimiento`) REFERENCES `entretenimiento` (`Id_entretenimiento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +72,7 @@ CREATE TABLE `centros_comerciales` (
 
 LOCK TABLES `centros_comerciales` WRITE;
 /*!40000 ALTER TABLE `centros_comerciales` DISABLE KEYS */;
+INSERT INTO `centros_comerciales` VALUES (1,'Unicentro','Cra. 15 #124-30, Usaquén, Bogotá','Unicentro Bogotá es un centro comercial de Bogotá, Colombia; fue inaugurado el 27 de abril de 1976, siendo el primer centro comercial de Bogotá. Es uno de los principales y más reconocidos de Colombia, Las tiendas ancla más importantes del centro comercial son, Almacenes Éxito, Cine Colombia, La Bolera, Zara, Panamericana, Pepe Ganga y Falabella.',1,'Usaquén');
 /*!40000 ALTER TABLE `centros_comerciales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +93,7 @@ CREATE TABLE `cuentas` (
   PRIMARY KEY (`Id_Usuario`),
   KEY `Id_servicios` (`Id_servicios`),
   CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`Id_servicios`) REFERENCES `servicios` (`Id_Servicios`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf16;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf16;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +102,7 @@ CREATE TABLE `cuentas` (
 
 LOCK TABLES `cuentas` WRITE;
 /*!40000 ALTER TABLE `cuentas` DISABLE KEYS */;
-INSERT INTO `cuentas` VALUES (1,'','','','',1),(22,'santiago','polanco','santi01031@outlook.com','$2y$10$DfYLb0p4twpspco6mJmHAONQPADBkT4yjFxx6YIh2/629HyzP2FTm',1),(23,'Nicolas','Baron','nbaronortiz4@gmail.com','$2y$10$YbrsHgpf1KYaCLGpFGFFIu9yL0zfOW76VnJYAP/P63C5EW5X60MfO',1);
+INSERT INTO `cuentas` VALUES (1,'','','','',1),(24,'santiago','polanco','santi01031@outlook.com','$2y$10$5bEwRc5DfSEjOk.xANi8Ru8oC9G4V7rtSo5P1XMWQEgQ5rSLtDim2',1),(27,'Nicolas','Baron','nbaronortiz4@gmail.com','$2y$10$FpXXiE5l4FJ/Jx7Egxoqc.pE7VXHUsGKv3VqPhkg6zfmQPk.ldlWW',1);
 /*!40000 ALTER TABLE `cuentas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,16 +172,18 @@ DROP TABLE IF EXISTS `estadios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estadios` (
   `Id_estadios` int NOT NULL AUTO_INCREMENT,
-  `Nombres_de_estadios` varchar(30) NOT NULL,
+  `Nombres_de_estadios` varchar(250) NOT NULL,
   `Ubicacion_de_estadios` varchar(50) NOT NULL,
-  `Tipos_de_estadios` varchar(30) NOT NULL,
+  `Tipos_de_estadios` int NOT NULL,
   `Informacion_de_estadios` varchar(250) NOT NULL,
   `Id_entreteniemiento` int NOT NULL,
   `localidad` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Id_estadios`),
   KEY `Id_entreteniemiento` (`Id_entreteniemiento`),
-  CONSTRAINT `estadios_ibfk_1` FOREIGN KEY (`Id_entreteniemiento`) REFERENCES `entretenimiento` (`Id_entretenimiento`)
-)  ENGINE=InnoDB DEFAULT CHARSET=utf16;
+  KEY `Tipos_de_estadios_idx` (`Tipos_de_estadios`),
+  CONSTRAINT `estadios_ibfk_1` FOREIGN KEY (`Id_entreteniemiento`) REFERENCES `entretenimiento` (`Id_entretenimiento`),
+  CONSTRAINT `Tipos_de_estadios` FOREIGN KEY (`Tipos_de_estadios`) REFERENCES `tipos_de_estadios` (`Id_de_tipos_de_estadios`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf16;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,6 +192,7 @@ CREATE TABLE `estadios` (
 
 LOCK TABLES `estadios` WRITE;
 /*!40000 ALTER TABLE `estadios` DISABLE KEYS */;
+INSERT INTO `estadios` VALUES (1,'Estadio Nemesio Camacho El Campín','Carrera 30 y Calle 57, Bogotá',1,'El Estadio Nemesio Camacho El Campín, ​ conocido simplemente como El Campín, es el estadio de fútbol más grande de Bogotá, ubicado en la localidad de Teusaquillo, centro-occidente de la capital de Colombia, Tiene una capacidad: 39,000 personas aprox.',1,'Teusaquillo');
 /*!40000 ALTER TABLE `estadios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +210,7 @@ CREATE TABLE `formulario_contacto` (
   `mensaje` text NOT NULL,
   `fecha_creacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +219,7 @@ CREATE TABLE `formulario_contacto` (
 
 LOCK TABLES `formulario_contacto` WRITE;
 /*!40000 ALTER TABLE `formulario_contacto` DISABLE KEYS */;
-INSERT INTO `formulario_contacto` VALUES (1,'santiago','santi01031@outlook.com','hola que ase','2023-11-19 22:14:41'),(2,'Nicolás','nbaronortiz4@gmail.com','q cojones es esto chaval','2023-11-19 22:17:36'),(3,'Nicolás','nbaronortiz4@gmail.com','q cojones es esto chaval','2023-11-19 22:17:55'),(4,'Nicolás','nbaronortiz4@gmail.com','que te pasa loco','2023-11-19 22:21:07'),(5,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:22:39'),(6,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:23:04'),(7,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:23:08'),(8,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:31:25'),(9,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:31:59'),(10,'Nicolás','nbaronortiz4@gmail.com','asa','2023-11-19 22:32:08'),(11,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:03'),(12,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:04'),(13,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(14,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(15,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(16,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(17,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(18,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(19,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(20,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(21,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(22,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(23,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:07'),(24,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:07'),(25,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:07'),(26,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(27,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(28,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(29,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(30,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(31,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(32,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(33,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(34,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(35,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:10'),(36,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:10'),(37,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:34:49'),(38,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:34:49'),(39,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:34:50'),(40,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:36:24'),(41,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:36:59'),(42,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:36:59'),(43,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:37:00'),(44,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:37:00'),(45,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:18'),(46,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(47,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(48,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(49,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(50,'santiago','santi01031@outlook.com','dfgdf','2023-11-19 22:38:50'),(51,'santiago','danielapolancobuitrago@gmail.com','dfg','2023-11-19 22:39:18'),(52,'santiago','santi01031@outlook.com','no se','2023-11-19 22:40:01'),(53,'santiago','santi01031@outlook.com','fsdfsdf','2023-11-19 22:41:08'),(54,'santiago','santi01031@outlook.com','lol','2023-11-19 22:41:59'),(55,'sd','j.polanco1975@hotmail.com','sadasd','2023-11-19 22:42:38'),(56,'sd','j.polanco1975@hotmail.com','sadasd','2023-11-19 22:42:38'),(57,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:43:51'),(58,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:43:51'),(59,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:44:03'),(60,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:44:03'),(61,'utr','sas@ada.com','sad','2023-11-19 22:44:48');
+INSERT INTO `formulario_contacto` VALUES (1,'santiago','santi01031@outlook.com','hola que ase','2023-11-19 22:14:41'),(2,'Nicolás','nbaronortiz4@gmail.com','q cojones es esto chaval','2023-11-19 22:17:36'),(3,'Nicolás','nbaronortiz4@gmail.com','q cojones es esto chaval','2023-11-19 22:17:55'),(4,'Nicolás','nbaronortiz4@gmail.com','que te pasa loco','2023-11-19 22:21:07'),(5,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:22:39'),(6,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:23:04'),(7,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:23:08'),(8,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:31:25'),(9,'Nicolás','nbaronortiz4@gmail.com','???','2023-11-19 22:31:59'),(10,'Nicolás','nbaronortiz4@gmail.com','asa','2023-11-19 22:32:08'),(11,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:03'),(12,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:04'),(13,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(14,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(15,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(16,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(17,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(18,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:05'),(19,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(20,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(21,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(22,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:06'),(23,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:07'),(24,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:07'),(25,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:07'),(26,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(27,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(28,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(29,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(30,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:08'),(31,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(32,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(33,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(34,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:09'),(35,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:10'),(36,'Nicolás','nbaronortiz4@gmail.com','aa','2023-11-19 22:34:10'),(37,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:34:49'),(38,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:34:49'),(39,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:34:50'),(40,'Nicolás','nbaronortiz4@gmail.com','ss','2023-11-19 22:36:24'),(41,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:36:59'),(42,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:36:59'),(43,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:37:00'),(44,'santiago','santi01031@outlook.com','asdf','2023-11-19 22:37:00'),(45,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:18'),(46,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(47,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(48,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(49,'dsf','dsf@sdgsd.com','sdf','2023-11-19 22:38:19'),(50,'santiago','santi01031@outlook.com','dfgdf','2023-11-19 22:38:50'),(51,'santiago','danielapolancobuitrago@gmail.com','dfg','2023-11-19 22:39:18'),(52,'santiago','santi01031@outlook.com','no se','2023-11-19 22:40:01'),(53,'santiago','santi01031@outlook.com','fsdfsdf','2023-11-19 22:41:08'),(54,'santiago','santi01031@outlook.com','lol','2023-11-19 22:41:59'),(55,'sd','j.polanco1975@hotmail.com','sadasd','2023-11-19 22:42:38'),(56,'sd','j.polanco1975@hotmail.com','sadasd','2023-11-19 22:42:38'),(57,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:43:51'),(58,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:43:51'),(59,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:44:03'),(60,'sadfa','santi01031@outlook.com','otravez','2023-11-19 22:44:03'),(61,'utr','sas@ada.com','sad','2023-11-19 22:44:48'),(62,'Nicolás','nbaronortiz4@gmail.com','pagina zzz','2023-11-24 05:08:52'),(63,'Nicolás','nbaronortiz4@gmail.com','app zzzz','2023-11-24 05:12:10'),(64,'fgh','santi01031@outlook.comfxgb','gb','2023-11-24 05:12:50');
 /*!40000 ALTER TABLE `formulario_contacto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,7 +432,6 @@ CREATE TABLE `schedule_list` (
 
 LOCK TABLES `schedule_list` WRITE;
 /*!40000 ALTER TABLE `schedule_list` DISABLE KEYS */;
-INSERT INTO `schedule_list` VALUES (5,'pruebaa','pend','2023-11-19 07:28:00','2023-11-21 06:28:00',22);
 /*!40000 ALTER TABLE `schedule_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -515,11 +518,8 @@ DROP TABLE IF EXISTS `tipos_de_estadios`;
 CREATE TABLE `tipos_de_estadios` (
   `Id_de_tipos_de_estadios` int NOT NULL AUTO_INCREMENT,
   `Nombres_de_tipos_de_estadios` varchar(30) NOT NULL,
-  `Id_de_estadios` int NOT NULL,
-  PRIMARY KEY (`Id_de_tipos_de_estadios`),
-  KEY `Id_de_estadios` (`Id_de_estadios`),
-  CONSTRAINT `tipos_de_estadios_ibfk_1` FOREIGN KEY (`Id_de_estadios`) REFERENCES `estadios` (`Id_estadios`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+  PRIMARY KEY (`Id_de_tipos_de_estadios`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf16;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -528,6 +528,7 @@ CREATE TABLE `tipos_de_estadios` (
 
 LOCK TABLES `tipos_de_estadios` WRITE;
 /*!40000 ALTER TABLE `tipos_de_estadios` DISABLE KEYS */;
+INSERT INTO `tipos_de_estadios` VALUES (1,'Estadios_Futbol');
 /*!40000 ALTER TABLE `tipos_de_estadios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -644,7 +645,7 @@ CREATE TABLE `verification_codes` (
   `token` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
-  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `cuentas` (`Id_Usuario`)
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `cuentas` (`Id_Usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -654,7 +655,6 @@ CREATE TABLE `verification_codes` (
 
 LOCK TABLES `verification_codes` WRITE;
 /*!40000 ALTER TABLE `verification_codes` DISABLE KEYS */;
-INSERT INTO `verification_codes` VALUES (42,22,'066755');
 /*!40000 ALTER TABLE `verification_codes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -667,4 +667,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-21  3:58:29
+-- Dump completed on 2023-11-24  5:12:37
